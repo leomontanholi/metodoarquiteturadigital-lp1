@@ -2543,16 +2543,17 @@
       .hero-portrait-caption { right: 13px; bottom: 13px; left: 13px; padding: 11px 12px; }
       .hero-portrait-index { top: 7px; right: -2px; }
       .hero-portrait-axis { bottom: 7px; left: -6px; width: 46px; height: 46px; }
-      .hero { padding: 450px 0 72px; }
+      .hero { padding: 320px 0 72px; }
       .hero-grid { min-height: 0; }
       .hero-photo-bg {
         inset: 64px 0 auto;
-        height: 350px;
+        height: 220px;
         background-image:
-          linear-gradient(180deg, rgba(244, 246, 252, .02) 0%, rgba(244, 246, 252, .04) 58%, rgba(244, 246, 252, .88) 88%, var(--canvas) 100%),
+          linear-gradient(180deg, transparent 0%, transparent 80%, rgba(244, 246, 252, .48) 92%, var(--canvas) 100%),
           linear-gradient(90deg, rgba(31, 76, 255, .08), transparent 38%),
           url("assets/leo-montanholi-metodo-arquitetura-digital.png");
-        background-position: center, center, 78% center;
+        background-position: center, center, right 36%;
+        background-size: cover, cover, auto 340px;
       }
     }
   </style>
@@ -2949,11 +2950,6 @@
       <div class="footer-links"><a href="#duvidas">Dúvidas</a><a href="#oferta">Oferta</a></div>
     </div>
   </footer>
-
-  <div class="sticky-buy" aria-label="Entrar na lista de espera do Método Arquitetura Digital">
-    <span>Preço do produto<strong>R$ 97</strong></span>
-    <button class="btn btn-primary waitlist-button" type="button">Entrar na lista</button>
-  </div>
 
   <div class="waitlist-modal" id="waitlist-modal" hidden>
     <div class="waitlist-dialog" role="dialog" aria-modal="true" aria-labelledby="waitlist-title" aria-describedby="waitlist-description">
