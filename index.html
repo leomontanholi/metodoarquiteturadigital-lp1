@@ -2357,13 +2357,203 @@
       box-shadow: 3px 3px 0 var(--signal);
     }
 
+    /* Retrato integrado à hero */
+    .hero-grid { align-items: center; }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero-portrait {
+      position: relative;
+      isolation: isolate;
+      width: min(100%, 510px);
+      margin: 0;
+      padding: 24px 24px 28px 0;
+      justify-self: end;
+    }
+    .hero-portrait::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -2;
+      width: 72%;
+      height: 62%;
+      content: "";
+      background:
+        linear-gradient(rgba(31, 76, 255, .14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 76, 255, .14) 1px, transparent 1px),
+        var(--accent);
+      background-size: 24px 24px;
+      border: 1px solid #c7d2ff;
+      border-radius: 12px;
+    }
+    .hero-portrait::after {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      z-index: -1;
+      width: calc(100% - 34px);
+      height: calc(100% - 48px);
+      content: "";
+      background: var(--navy);
+      border: 1px solid #08132f;
+      border-radius: 14px;
+      box-shadow: 0 26px 65px rgba(15, 27, 61, .20);
+    }
+    .hero-portrait-frame {
+      position: relative;
+      z-index: 2;
+      padding: 7px;
+      background: #fff;
+      border: 1px solid var(--navy);
+      border-radius: 14px;
+      box-shadow: 8px 8px 0 rgba(31, 76, 255, .22), 0 18px 48px rgba(15, 27, 61, .16);
+    }
+    .hero-portrait-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: #dce5f7;
+      border-radius: 9px;
+    }
+    .hero-portrait-image::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, transparent 54%, rgba(7, 16, 40, .40) 100%),
+        linear-gradient(90deg, rgba(31, 76, 255, .10), transparent 40%);
+    }
+    .hero-portrait img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 73% center;
+      transform: scale(1.015);
+    }
+    .hero-portrait-caption {
+      position: absolute;
+      right: 17px;
+      bottom: 17px;
+      left: 17px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 13px 15px;
+      color: #fff;
+      background: rgba(15, 27, 61, .90);
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(4, 10, 26, .24);
+      backdrop-filter: blur(10px);
+    }
+    .hero-portrait-caption strong {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+    }
+    .hero-portrait-caption span {
+      color: #cbd5ea;
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 9px;
+      line-height: 1.45;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .hero-portrait-index {
+      position: absolute;
+      top: 11px;
+      right: -4px;
+      z-index: 4;
+      padding: 8px 10px;
+      color: var(--signal-ink);
+      background: var(--accent);
+      border: 1px solid #bdcaff;
+      border-radius: 6px;
+      box-shadow: 3px 3px 0 rgba(31, 76, 255, .18);
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .10em;
+    }
+    .hero-portrait-axis {
+      position: absolute;
+      bottom: 11px;
+      left: -11px;
+      z-index: 4;
+      width: 58px;
+      height: 58px;
+      border-bottom: 3px solid var(--signal);
+      border-left: 3px solid var(--signal);
+    }
+    .hero-portrait-axis::after {
+      position: absolute;
+      right: -5px;
+      bottom: -5px;
+      width: 8px;
+      height: 8px;
+      content: "";
+      background: var(--signal);
+      border-radius: 50%;
+      box-shadow: -25px 0 0 var(--signal), -50px 0 0 var(--signal);
+    }
+
+    /* Foto como camada de fundo da hero */
+    .hero {
+      isolation: isolate;
+      background: var(--canvas);
+    }
+    .hero::before {
+      z-index: 1;
+      pointer-events: none;
+      mask-image: linear-gradient(90deg, black 0%, rgba(0, 0, 0, .72) 42%, transparent 72%);
+    }
+    .hero::after { display: none; }
+    .hero-grid {
+      display: block;
+      min-height: 560px;
+    }
+    .hero-copy { max-width: 650px; }
+    .hero-photo-bg {
+      position: absolute;
+      inset: 0 0 0 28%;
+      z-index: 0;
+      background-image:
+        linear-gradient(90deg, var(--canvas) 0%, rgba(244, 246, 252, .98) 12%, rgba(244, 246, 252, .80) 30%, rgba(244, 246, 252, .28) 54%, rgba(244, 246, 252, .04) 78%),
+        linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(15, 27, 61, .16)),
+        url("assets/leo-montanholi-metodo-arquitetura-digital.png");
+      background-position: center, center, 84% center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
     @media (max-width: 980px) {
       .nav.open .nav-links { background: var(--canvas); }
       .nav.open .nav-links a { color: var(--graphite); border-color: var(--line); }
       .nav.open .nav-links .btn { color: #fff; }
+      .hero-grid { gap: 56px; }
+      .hero-portrait { width: min(100%, 540px); justify-self: center; }
+      .hero-grid { min-height: 530px; }
+      .hero-photo-bg { left: 24%; }
     }
     @media (max-width: 680px) {
       .scenario-list { grid-template-columns: 1fr; }
+      .hero-portrait { padding: 17px 16px 22px 0; }
+      .hero-portrait::after { width: calc(100% - 22px); height: calc(100% - 34px); }
+      .hero-portrait-caption { right: 13px; bottom: 13px; left: 13px; padding: 11px 12px; }
+      .hero-portrait-index { top: 7px; right: -2px; }
+      .hero-portrait-axis { bottom: 7px; left: -6px; width: 46px; height: 46px; }
+      .hero { padding: 450px 0 72px; }
+      .hero-grid { min-height: 0; }
+      .hero-photo-bg {
+        inset: 64px 0 auto;
+        height: 350px;
+        background-image:
+          linear-gradient(180deg, rgba(244, 246, 252, .02) 0%, rgba(244, 246, 252, .04) 58%, rgba(244, 246, 252, .88) 88%, var(--canvas) 100%),
+          linear-gradient(90deg, rgba(31, 76, 255, .08), transparent 38%),
+          url("assets/leo-montanholi-metodo-arquitetura-digital.png");
+        background-position: center, center, 78% center;
+      }
     }
   </style>
 </head>
@@ -2392,11 +2582,11 @@
 
   <main id="conteudo">
     <section class="hero" id="inicio">
+      <div class="hero-photo-bg" role="img" aria-label="Leo Montanholi trabalhando em seu computador"></div>
       <div class="container hero-grid">
         <div class="hero-copy" data-reveal>
-          <p class="eyebrow">Para tirar seu negócio digital do papel</p>
-          <h1><span class="headline-line">Produto, conteúdo,</span><span class="headline-line">página e tráfego.</span><span class="headline-line">O&nbsp;difícil é saber</span><em>o&nbsp;que vem&nbsp;primeiro.</em></h1>
-          <p class="hero-lead">Você passa mais uma noite mexendo na bio, comparando ferramentas e organizando as aulas que salvou. No fim, o negócio continua no mesmo lugar. Aqui, você responde a um questionário sobre sua realidade e recebe público, posicionamento, oferta, textos de venda, funil e tráfego pensados em conjunto — mais a ordem certa para tirar tudo&nbsp;do&nbsp;papel.</p>
+          <h1><span class="headline-line">Tire seu negócio</span><span class="headline-line">digital do papel.</span><span class="headline-line">Pare de travar e saiba</span><em>o que fazer primeiro.</em></h1>
+          <p class="hero-lead">Responda ao questionário e receba seu plano completo, com as decisões tomadas e um checklist que mostra o que fazer e em qual ordem.</p>
           <div class="hero-actions">
             <button class="btn btn-primary waitlist-button" type="button">Quero entrar na lista de espera</button>
             <span class="microcopy">Estamos fazendo os últimos ajustes. Você será avisado assim que as vendas abrirem.</span>
@@ -2407,40 +2597,6 @@
           </div>
         </div>
 
-        <div class="app-shell" data-reveal aria-label="Exemplo ilustrativo de como um plano pode aparecer no painel">
-          <div class="app-window">
-            <div class="app-topbar">
-              <span class="app-logo"><i></i> SEU PLANO DE NEGÓCIO</span>
-              <span class="app-avatar" aria-hidden="true"></span>
-            </div>
-            <div class="app-body">
-              <p class="app-kicker">Nicho do negócio · confeitaria</p>
-              <h2 class="app-title">Confeitaria que Vende</h2>
-              <div class="app-stats">
-                <div class="app-stat"><b>16</b><span>seções estratégicas</span></div>
-                <div class="app-stat"><b>50</b><span>tarefas em ordem</span></div>
-                <div class="app-stat"><b>5</b><span>fases de execução</span></div>
-              </div>
-              <div class="app-highlight">
-                <small>Ideia central</small>
-                <strong>Você não precisa baixar o preço. Precisa facilitar a escolha de quem quer encomendar.</strong>
-              </div>
-              <div class="app-columns">
-                <div class="app-card">
-                  <div class="app-card-label">Produto definido</div>
-                  <strong>Agenda Cheia para Confeiteiras</strong>
-                  <small>Curso de entrada · R$ 47</small>
-                </div>
-                <div class="app-card">
-                  <div class="app-card-label">Execução</div>
-                  <strong>Próxima: validar a promessa com 5 confeiteiras</strong>
-                  <div class="mini-progress"><span></span></div>
-                  <small>14 de 50 tarefas</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
