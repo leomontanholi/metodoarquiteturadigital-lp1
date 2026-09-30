@@ -6,6 +6,7 @@
   <meta name="description" content="Método Arquitetura Digital: responda a um questionário e receba as decisões e a ordem certa para colocar seu negócio digital no ar.">
   <meta name="theme-color" content="#f4f4f2">
   <title>Método Arquitetura Digital — Pare de montar seu negócio no escuro</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -2332,6 +2333,95 @@
       max-width: 68ch;
       text-wrap: balance;
     }
+    .footer-privacy {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+    .footer-privacy:hover { color: #fff; }
+
+    .privacy-banner {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 450;
+      width: min(calc(100% - 44px), 500px);
+      padding: 24px;
+      color: var(--graphite);
+      background: rgba(255, 255, 255, .98);
+      border: 1px solid var(--navy);
+      border-radius: 14px;
+      box-shadow: 7px 7px 0 rgba(31, 76, 255, .24), 0 24px 64px rgba(4, 10, 26, .22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      animation: privacy-banner-enter .32s cubic-bezier(.22, 1, .36, 1) both;
+    }
+    .privacy-banner[hidden] { display: none; }
+    .privacy-banner-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--signal-ink);
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .privacy-banner-label::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--signal);
+      border-radius: 2px;
+    }
+    .privacy-banner h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+    .privacy-banner p {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .privacy-banner-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .privacy-banner-actions button {
+      min-height: 42px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .privacy-accept {
+      color: #fff;
+      background: var(--signal);
+      border: 1px solid var(--signal);
+    }
+    .privacy-accept:hover { background: var(--signal-ink); }
+    .privacy-reject {
+      color: var(--graphite);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+    .privacy-reject:hover { border-color: #aebeff; }
+
+    @keyframes privacy-banner-enter {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .sticky-buy {
       color: var(--graphite);
@@ -2560,6 +2650,20 @@
         background-position: center, center, right 36%;
         background-size: cover, cover, auto 340px;
       }
+      .privacy-banner {
+        right: 12px;
+        bottom: 12px;
+        width: calc(100% - 24px);
+        padding: 20px;
+        border-radius: 12px;
+      }
+      .privacy-banner h2 { font-size: 21px; }
+      .privacy-banner-actions { display: grid; }
+      .privacy-banner-actions button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .privacy-banner { animation: none; }
     }
   </style>
 </head>
@@ -2960,9 +3064,86 @@
         <a class="brand footer-brand" href="#inicio"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">MÉTODO <span>ARQUITETURA DIGITAL</span></span></a>
         <p class="footer-copy">O Método Arquitetura Digital organiza suas informações, ajuda a tomar as principais decisões e cria um roteiro para você colocar o plano em prática. O resultado depende das suas respostas, da validação no mercado e da execução.</p>
       </div>
-      <div class="footer-links"><a href="#duvidas">Dúvidas</a><a href="#oferta">Oferta</a></div>
+      <div class="footer-links"><a href="#duvidas">Dúvidas</a><a href="#oferta">Oferta</a><button class="footer-privacy" id="privacy-settings" type="button">Preferências de privacidade</button></div>
     </div>
   </footer>
+
+  <aside class="privacy-banner" id="privacy-banner" aria-labelledby="privacy-title" aria-describedby="privacy-description" hidden>
+    <span class="privacy-banner-label">Privacidade</span>
+    <h2 id="privacy-title">Você decide sobre a medição.</h2>
+    <p id="privacy-description">Usamos o Pixel da Meta para medir visitas e melhorar anúncios. Ele só será ativado se você aceitar. A página funciona normalmente sem esse rastreamento.</p>
+    <div class="privacy-banner-actions">
+      <button class="privacy-accept" id="privacy-accept" type="button">Aceitar medição</button>
+      <button class="privacy-reject" id="privacy-reject" type="button">Continuar sem Pixel</button>
+    </div>
+  </aside>
+
+  <!-- Meta Pixel: carregado somente após consentimento para cookies de marketing. -->
+  <script>
+    (function setupMetaPixelConsent() {
+      const consentKey = "mad_meta_consent_v1";
+      const banner = document.getElementById("privacy-banner");
+      const acceptButton = document.getElementById("privacy-accept");
+      const rejectButton = document.getElementById("privacy-reject");
+      const settingsButton = document.getElementById("privacy-settings");
+
+      function loadMetaPixel() {
+        if (!window.fbq) {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,"script",
+          "https://connect.facebook.net/en_US/fbevents.js");
+          fbq("init", "3311116135745856");
+        }
+
+        fbq("consent", "grant");
+        if (!window.__madMetaPageViewSent) {
+          fbq("track", "PageView");
+          window.__madMetaPageViewSent = true;
+        }
+      }
+
+      function saveConsent(value) {
+        try { localStorage.setItem(consentKey, value); } catch (error) {}
+      }
+
+      function readConsent() {
+        try { return localStorage.getItem(consentKey); } catch (error) { return null; }
+      }
+
+      function hideBanner() {
+        banner.hidden = true;
+      }
+
+      acceptButton.addEventListener("click", () => {
+        saveConsent("granted");
+        hideBanner();
+        loadMetaPixel();
+      });
+
+      rejectButton.addEventListener("click", () => {
+        saveConsent("denied");
+        hideBanner();
+        if (window.fbq) fbq("consent", "revoke");
+      });
+
+      settingsButton.addEventListener("click", () => {
+        banner.hidden = false;
+        acceptButton.focus();
+      });
+
+      const savedConsent = readConsent();
+      if (savedConsent === "granted") {
+        loadMetaPixel();
+      } else if (savedConsent !== "denied") {
+        banner.hidden = false;
+      }
+    })();
+  </script>
 
 
   <script>
